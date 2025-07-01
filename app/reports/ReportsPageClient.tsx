@@ -442,7 +442,7 @@ export default function ReportsPageClient() {
                   <CardDescription>{salesData.periodLabel}の製品カテゴリ別売上比率</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <SalesByProduct />
+                  <SalesByProduct selectedMonth={selectedMonth} />
                 </CardContent>
               </Card>
             </div>
@@ -542,7 +542,7 @@ export default function ReportsPageClient() {
                   <CardDescription>{salesData.periodLabel}の製品カテゴリ別売上比率</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <SalesByProduct />
+                  <SalesByProduct selectedMonth={selectedMonth} />
                 </CardContent>
               </Card>
             </div>
@@ -696,7 +696,7 @@ export default function ReportsPageClient() {
                   <CardDescription>{salesData.periodLabel}の製品カテゴリ別売上比率</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <SalesByProduct />
+                  <SalesByProduct selectedMonth={selectedMonth} />
                 </CardContent>
               </Card>
             </div>
