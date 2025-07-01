@@ -40,17 +40,18 @@ export function AddSaleDialog() {
   const [open, setOpen] = useState(false)
   const { addSale } = useSales()
   const { products, getProductByName } = useProducts()
-  const { getActiveSalespersons } = useSalespersons()
+  const { getActiveSalespersons, getOwnerSalesperson } = useSalespersons()
   const { toast } = useToast()
 
   const activeSalespersons = getActiveSalespersons()
+  const ownerSalesperson = getOwnerSalesperson()
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       dateInput: format(new Date(), "yyyy/MM/dd"),
       productName: "",
-      salespersonId: "",
+      salespersonId: ownerSalesperson?.id || "",
       quantity: 1,
       amount: 0,
     },
@@ -107,7 +108,7 @@ export function AddSaleDialog() {
       form.reset({
         dateInput: format(new Date(), "yyyy/MM/dd"),
         productName: "",
-        salespersonId: "",
+        salespersonId: ownerSalesperson?.id || "",
         quantity: 1,
         amount: 0,
       })

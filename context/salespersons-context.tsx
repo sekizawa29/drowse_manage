@@ -25,6 +25,7 @@ type SalespersonsContextType = {
   removeSalesperson: (id: string) => Promise<void>
   getActiveSalespersons: () => Salesperson[]
   getSalespersonById: (id: string) => Salesperson | undefined
+  getOwnerSalesperson: () => Salesperson | undefined
 }
 
 const SalespersonsContext = createContext<SalespersonsContextType | undefined>(undefined)
@@ -194,6 +195,10 @@ export function SalespersonsProvider({ children }: { children: ReactNode }) {
     return salespersons.find((salesperson) => salesperson.id === id)
   }
 
+  const getOwnerSalesperson = () => {
+    return salespersons.find((salesperson) => salesperson.name === "オーナー" && salesperson.isActive)
+  }
+
   return (
     <SalespersonsContext.Provider
       value={{
@@ -204,6 +209,7 @@ export function SalespersonsProvider({ children }: { children: ReactNode }) {
         removeSalesperson,
         getActiveSalespersons,
         getSalespersonById,
+        getOwnerSalesperson,
       }}
     >
       {children}
