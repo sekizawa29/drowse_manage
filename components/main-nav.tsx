@@ -25,8 +25,8 @@ export function MainNav() {
   return (
     <div className="mr-4 flex items-center">
       <Link href="/" className="mr-6 flex items-center space-x-2">
-        <span className="hidden font-bold sm:inline-block">CBD販売管理</span>
-        <span className="inline-block font-bold sm:hidden">CBD</span>
+        <span className="hidden font-bold sm:inline-block">売上管理</span>
+        <span className="inline-block font-bold sm:hidden">売上</span>
       </Link>
 
       {/* デスクトップナビゲーション */}
@@ -58,7 +58,7 @@ export function MainNav() {
           <SheetContent side="left" className="w-[240px] sm:w-[300px]">
             <div className="flex flex-col space-y-4 py-4">
               <div className="flex items-center justify-between mb-4">
-                <span className="font-bold text-lg">CBD販売管理</span>
+                <span className="font-bold text-lg">売上管理</span>
                 <Button variant="ghost" size="icon" onClick={() => setOpen(false)}>
                   <X className="h-5 w-5" />
                 </Button>
