@@ -538,7 +538,7 @@ export default function DashboardPageClient() {
                     <CardTitle>製品別売上比率</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <SalesByProduct />
+                    <SalesByProduct selectedMonth={selectedMonth} />
                   </CardContent>
                 </Card>
               </div>
@@ -621,7 +621,7 @@ export default function DashboardPageClient() {
                     <CardTitle>製品別売上比率</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <SalesByProduct />
+                    <SalesByProduct selectedMonth={selectedMonth} />
                   </CardContent>
                 </Card>
               </div>
