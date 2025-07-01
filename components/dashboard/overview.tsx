@@ -12,28 +12,35 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 import { useSales } from "@/context/sales-context"
-import { format, subDays } from "date-fns"
+import { format, startOfMonth, endOfMonth, eachDayOfInterval } from "date-fns"
+import { ja } from "date-fns/locale"
 
 export function Overview() {
   const { sales } = useSales()
 
-  // 過去30日間のデータを集計
+  // 現在の月の開始日と終了日を取得
   const today = new Date()
-  const thirtyDaysAgo = subDays(today, 30)
+  const monthStart = startOfMonth(today)
+  const monthEnd = endOfMonth(today)
+
+  // 現在の月の全ての日を取得
+  const daysInMonth = eachDayOfInterval({
+    start: monthStart,
+    end: monthEnd
+  })
 
   // 日付ごとの売上を集計
   const dailySales = new Map<string, number>()
 
-  // 過去30日間の日付を初期化
-  for (let i = 0; i < 30; i++) {
-    const date = subDays(today, i)
+  // 月の全ての日を初期化（0円で）
+  daysInMonth.forEach(date => {
     const dateKey = format(date, "M/d")
     dailySales.set(dateKey, 0)
-  }
+  })
 
-  // 売上データを集計
+  // 売上データを集計（現在の月のデータのみ）
   sales.forEach((sale) => {
-    if (sale.date >= thirtyDaysAgo && sale.date <= today) {
+    if (sale.date >= monthStart && sale.date <= monthEnd) {
       const dateKey = format(sale.date, "M/d")
       const currentAmount = dailySales.get(dateKey) || 0
       dailySales.set(dateKey, currentAmount + sale.amount)
@@ -41,15 +48,13 @@ export function Overview() {
   })
 
   // グラフ用のデータ形式に変換
-  const data = Array.from(dailySales.entries())
-    .map(([name, total]) => ({ name, total }))
-    .sort((a, b) => {
-      // 日付でソート (M/d形式なので、一度Dateに変換)
-      const dateA = new Date(`2024/${a.name}`)
-      const dateB = new Date(`2024/${b.name}`)
-      return dateA.getTime() - dateB.getTime()
-    })
-    .slice(-14) // 直近14日間のみ表示
+  const data = daysInMonth.map(date => {
+    const dateKey = format(date, "M/d")
+    return {
+      name: dateKey,
+      total: dailySales.get(dateKey) || 0
+    }
+  })
 
   return (
     <ChartContainer
