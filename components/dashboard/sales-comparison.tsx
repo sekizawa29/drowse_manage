@@ -15,10 +15,14 @@ import {
 import { useSales } from "@/context/sales-context"
 import { format, getYear, subMonths } from "date-fns"
 
-export function SalesComparison() {
+interface SalesComparisonProps {
+  viewMode?: "monthly" | "yearly"
+}
+
+export function SalesComparison({ viewMode = "monthly" }: SalesComparisonProps) {
   const { sales } = useSales()
 
-  // 現在の月と前年同月の3ヶ月分のデータを集計
+  // 現在の月と前年同月のデータを集計
   const today = new Date()
   const currentYear = getYear(today)
   const previousYear = currentYear - 1
@@ -26,8 +30,11 @@ export function SalesComparison() {
   // 月ごとの売上を集計
   const monthlySales = new Map<string, { 今年: number; 前年: number }>()
 
-  // 直近3ヶ月を初期化
-  for (let i = 0; i < 3; i++) {
+  // 表示期間を決定（年次表示なら12ヶ月、月次表示なら3ヶ月）
+  const monthsToShow = viewMode === "yearly" ? 12 : 3
+  
+  // 指定した期間の月を初期化
+  for (let i = 0; i < monthsToShow; i++) {
     const date = subMonths(today, i)
     const monthKey = format(date, "M月")
     monthlySales.set(monthKey, { 今年: 0, 前年: 0 })

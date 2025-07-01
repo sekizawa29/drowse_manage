@@ -613,7 +613,7 @@ export default function DashboardPageClient() {
                     <CardTitle>年間売上推移</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <SalesComparison />
+                    <SalesComparison viewMode="yearly" />
                   </CardContent>
                 </Card>
                 <Card className="col-span-full lg:col-span-3">
