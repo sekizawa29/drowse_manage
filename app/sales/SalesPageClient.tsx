@@ -17,6 +17,7 @@ import { ExportSales } from "@/components/sales/export-sales"
 import { LoadingSpinner } from "@/components/ui/loading-spinner"
 import { Badge } from "@/components/ui/badge"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
 export default function SalesPageClient() {
   const [selectedMonth, setSelectedMonth] = useState<Date>(new Date())
@@ -48,6 +49,26 @@ export default function SalesPageClient() {
     setSelectedSale(sale)
     setDeleteDialogOpen(true)
   }
+
+  // 販売者別売上集計
+  const salespersonSummary = filteredSales.reduce((acc, sale) => {
+    const salesperson = sale.salespersonName || "不明"
+    if (!acc[salesperson]) {
+      acc[salesperson] = {
+        name: salesperson,
+        totalAmount: 0,
+        salesCount: 0,
+      }
+    }
+    acc[salesperson].totalAmount += sale.amount
+    acc[salesperson].salesCount += 1
+    return acc
+  }, {} as Record<string, { name: string; totalAmount: number; salesCount: number }>)
+
+  const salespersonStats = Object.values(salespersonSummary)
+    .sort((a, b) => b.totalAmount - a.totalAmount)
+
+  const totalSales = filteredSales.reduce((sum, sale) => sum + sale.amount, 0)
 
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
@@ -92,6 +113,43 @@ export default function SalesPageClient() {
           />
         </div>
       </div>
+
+      {/* 販売者別売上サマリー */}
+      {salespersonStats.length > 0 && (
+        <div className="space-y-4">
+          <h3 className="text-lg font-medium">
+            販売者別売上 ({format(selectedMonth, "yyyy年M月", { locale: ja })})
+          </h3>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {salespersonStats.map((stats) => (
+              <Card key={stats.name}>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm font-medium">{stats.name}</CardTitle>
+                  <CardDescription>販売実績</CardDescription>
+                </CardHeader>
+                <CardContent className="pt-0">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-muted-foreground">売上金額</span>
+                      <span className="font-medium">¥{stats.totalAmount.toLocaleString()}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-muted-foreground">販売件数</span>
+                      <span className="font-medium">{stats.salesCount}件</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-muted-foreground">構成比</span>
+                      <span className="font-medium">
+                        {totalSales > 0 ? ((stats.totalAmount / totalSales) * 100).toFixed(1) : 0}%
+                      </span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="rounded-md border">
         {isLoading ? (

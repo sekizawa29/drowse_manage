@@ -25,7 +25,7 @@ export function ExportSales({ selectedMonth }: ExportSalesProps) {
     }
 
     // CSVヘッダー
-    const headers = ["日付", "製品名", "カテゴリ", "数量", "金額"]
+    const headers = ["日付", "製品名", "カテゴリ", "数量", "金額", "販売者"]
 
     // CSVデータの作成
     const csvData = filteredSales.map((sale) => [
@@ -34,6 +34,7 @@ export function ExportSales({ selectedMonth }: ExportSalesProps) {
       sale.category,
       sale.quantity.toString(),
       sale.amount.toString(),
+      sale.salespersonName || "不明",
     ])
 
     // CSVテキストの生成
