@@ -309,11 +309,11 @@ export default function DashboardPageClient() {
               <CardHeader>
                 <CardTitle>製品別売上比率</CardTitle>
                 <CardDescription>
-                  {format(selectedMonth, "yyyy年M月", { locale: ja })}の製品カテゴリ別売上比率
+                  {format(selectedMonth, "yyyy年M月", { locale: ja })}の製品別売上比率
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <SalesByProduct />
+                <SalesByProduct selectedMonth={selectedMonth} />
               </CardContent>
             </Card>
           </div>

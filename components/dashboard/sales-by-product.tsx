@@ -12,15 +12,11 @@ import {
 } from "@/components/ui/chart"
 import { useSales } from "@/context/sales-context"
 
-// 色のパレット - カテゴリに合わせて色を設定
-const COLORS = {
-  CBD: "hsl(var(--chart-1))",
-  CBN: "hsl(var(--chart-2))",
-  CBG: "hsl(var(--chart-3))",
-  その他: "hsl(var(--chart-4))",
+interface SalesByProductProps {
+  selectedMonth: Date
 }
 
-// デフォルトの色
+// 製品名に基づく色パレット - より多くの色を用意
 const DEFAULT_COLORS = [
   "hsl(var(--chart-1))",
   "hsl(var(--chart-2))",
@@ -28,24 +24,37 @@ const DEFAULT_COLORS = [
   "hsl(var(--chart-4))",
   "hsl(var(--chart-5))",
   "hsl(var(--chart-0))",
+  "hsl(142, 76%, 36%)", // 緑
+  "hsl(258, 90%, 66%)", // 紫
+  "hsl(24, 95%, 53%)",  // オレンジ
+  "hsl(199, 89%, 48%)", // ブルー
+  "hsl(343, 81%, 54%)", // ピンク
+  "hsl(48, 96%, 53%)",  // 黄色
 ]
 
-export function SalesByProduct() {
+export function SalesByProduct({ selectedMonth }: SalesByProductProps) {
   const { sales } = useSales()
 
-  // カテゴリ別の売上を集計
-  const categorySales = new Map<string, number>()
+  // 選択された月のデータをフィルタリング
+  const filteredSales = sales.filter(
+    (sale) =>
+      sale.date.getFullYear() === selectedMonth.getFullYear() &&
+      sale.date.getMonth() === selectedMonth.getMonth()
+  )
 
-  sales.forEach((sale) => {
-    const currentAmount = categorySales.get(sale.category) || 0
-    categorySales.set(sale.category, currentAmount + sale.amount)
+  // 製品名別の売上を集計
+  const productSales = new Map<string, number>()
+
+  filteredSales.forEach((sale) => {
+    const currentAmount = productSales.get(sale.productName) || 0
+    productSales.set(sale.productName, currentAmount + sale.amount)
   })
 
   // 総売上を計算
-  const totalSales = Array.from(categorySales.values()).reduce((sum, amount) => sum + amount, 0)
+  const totalSales = Array.from(productSales.values()).reduce((sum, amount) => sum + amount, 0)
 
   // グラフ用のデータ形式に変換
-  const data = Array.from(categorySales.entries())
+  const data = Array.from(productSales.entries())
     .map(([name, amount]) => ({
       name,
       value: amount,
@@ -84,7 +93,7 @@ export function SalesByProduct() {
             {data.map((entry, index) => (
               <Cell
                 key={`cell-${index}`}
-                fill={COLORS[entry.name as keyof typeof COLORS] || DEFAULT_COLORS[index % DEFAULT_COLORS.length]}
+                fill={DEFAULT_COLORS[index % DEFAULT_COLORS.length]}
               />
             ))}
           </Pie>
