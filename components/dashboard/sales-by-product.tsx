@@ -2,7 +2,6 @@
 
 import {
   Cell,
-  Legend,
   Pie,
   PieChart,
   ResponsiveContainer,
@@ -11,26 +10,12 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 import { useSales } from "@/context/sales-context"
+import { CHART_COLOR_PALETTE, CHART_CONFIG } from "@/constants/ui-constants"
+import { truncateProductName } from "@/utils/product-name-utils"
 
 interface SalesByProductProps {
   selectedMonth: Date
 }
-
-// 製品名に基づく色パレット - より多くの色を用意
-const DEFAULT_COLORS = [
-  "hsl(var(--chart-1))",
-  "hsl(var(--chart-2))",
-  "hsl(var(--chart-3))",
-  "hsl(var(--chart-4))",
-  "hsl(var(--chart-5))",
-  "hsl(var(--chart-0))",
-  "hsl(142, 76%, 36%)", // 緑
-  "hsl(258, 90%, 66%)", // 紫
-  "hsl(24, 95%, 53%)",  // オレンジ
-  "hsl(199, 89%, 48%)", // ブルー
-  "hsl(343, 81%, 54%)", // ピンク
-  "hsl(48, 96%, 53%)",  // 黄色
-]
 
 export function SalesByProduct({ selectedMonth }: SalesByProductProps) {
   const { sales } = useSales()
@@ -50,11 +35,6 @@ export function SalesByProduct({ selectedMonth }: SalesByProductProps) {
     productSales.set(sale.productName, currentAmount + sale.amount)
   })
 
-  // 製品名を省略する関数
-  const truncateProductName = (name: string, maxLength: number = 15) => {
-    if (name.length <= maxLength) return name
-    return name.substring(0, maxLength) + "..."
-  }
 
   // 総売上を計算
   const totalSales = Array.from(productSales.values()).reduce((sum, amount) => sum + amount, 0)
@@ -95,16 +75,16 @@ export function SalesByProduct({ selectedMonth }: SalesByProductProps) {
                 cx="50%"
                 cy="50%"
                 labelLine={false}
-                outerRadius={60}
+                outerRadius={CHART_CONFIG.OUTER_RADIUS}
                 fill="#8884d8"
                 dataKey="value"
                 nameKey="name"
-                label={({ percentage }) => percentage >= 10 ? `${percentage}%` : ""}
+                label={({ percentage }) => percentage >= CHART_CONFIG.MIN_PERCENTAGE_FOR_LABEL ? `${percentage}%` : ""}
               >
                 {data.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
-                    fill={DEFAULT_COLORS[index % DEFAULT_COLORS.length]}
+                    fill={CHART_COLOR_PALETTE[index % CHART_COLOR_PALETTE.length]}
                   />
                 ))}
               </Pie>
@@ -130,7 +110,7 @@ export function SalesByProduct({ selectedMonth }: SalesByProductProps) {
             <div key={entry.name} className="flex items-center gap-2">
               <div
                 className="w-3 h-3 rounded-full flex-shrink-0"
-                style={{ backgroundColor: DEFAULT_COLORS[index % DEFAULT_COLORS.length] }}
+                style={{ backgroundColor: CHART_COLOR_PALETTE[index % CHART_COLOR_PALETTE.length] }}
               />
               <div className="flex-1 min-w-0">
                 <div className="font-medium text-xs truncate" title={entry.fullName}>
