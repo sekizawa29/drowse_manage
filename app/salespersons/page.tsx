@@ -24,24 +24,26 @@ export default function SalespersonsPage() {
 
   if (isLoading) {
     return (
-      <div className="flex-1 p-4 md:p-8 pt-6">
+      <div className="flex-1 p-3 md:p-8 pt-3 md:pt-6">
         <LoadingSpinner text="販売者データを読み込み中..." />
       </div>
     )
   }
 
   return (
-    <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
-      <div className="flex items-center justify-between">
+    <div className="flex-1 space-y-3 md:space-y-4 p-3 md:p-8 pt-3 md:pt-6">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-4">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight">販売者管理</h2>
-          <p className="text-muted-foreground">販売スタッフの情報を管理します</p>
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">販売者管理</h2>
+          <p className="text-sm md:text-base text-muted-foreground">販売スタッフの情報を管理します</p>
         </div>
-        <SalespersonDialog />
+        <div className="flex flex-wrap gap-2 w-full md:w-auto">
+          <SalespersonDialog />
+        </div>
       </div>
 
-      <div className="flex items-center space-x-2">
-        <div className="relative flex-1 max-w-sm">
+      <div className="flex items-center gap-2">
+        <div className="relative w-full md:max-w-sm">
           <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
             placeholder="販売者を検索..."
@@ -52,27 +54,29 @@ export default function SalespersonsPage() {
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-3 md:gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {filteredSalespersons.map((salesperson) => (
           <Card key={salesperson.id}>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <div className="flex items-center space-x-2">
-                <Users className="h-4 w-4" />
-                <CardTitle className="text-sm font-medium">{salesperson.name}</CardTitle>
+            <CardHeader className="p-4 md:p-6 pb-2 md:pb-2">
+              <div className="flex items-start justify-between gap-2">
+                <div className="flex items-center gap-2 min-w-0">
+                  <Users className="h-4 w-4 shrink-0" />
+                  <CardTitle className="text-sm font-medium truncate">{salesperson.name}</CardTitle>
+                </div>
+                <Badge variant={salesperson.isActive ? "default" : "secondary"} className="shrink-0">
+                  {salesperson.isActive ? "有効" : "無効"}
+                </Badge>
               </div>
-              <Badge variant={salesperson.isActive ? "default" : "secondary"}>
-                {salesperson.isActive ? "有効" : "無効"}
-              </Badge>
             </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
+            <CardContent className="p-4 md:p-6 pt-0">
+              <div className="space-y-1.5 md:space-y-2">
                 {salesperson.email && <p className="text-sm text-muted-foreground">メール: {salesperson.email}</p>}
                 {salesperson.phone && <p className="text-sm text-muted-foreground">電話: {salesperson.phone}</p>}
                 <p className="text-xs text-muted-foreground">
                   登録日: {format(salesperson.createdAt, "yyyy年M月d日", { locale: ja })}
                 </p>
               </div>
-              <div className="flex justify-end space-x-2 mt-4">
+              <div className="mt-3 md:mt-4 flex flex-wrap justify-end gap-2">
                 <SalespersonDialog salesperson={salesperson} />
                 {salesperson.isActive && <DeleteSalespersonDialog salesperson={salesperson} />}
               </div>

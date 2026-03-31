@@ -22,7 +22,10 @@ const fontSans = FontSans({
 export const metadata: Metadata = {
   title: "CBD製品販売管理システム",
   description: "CBD製品の売上を記録・可視化し、販売状況の判断や施策立案をサポートします。",
-    generator: 'v0.dev'
+  generator: "v0.dev",
+  icons: {
+    icon: "/favicon.ico",
+  },
 }
 
 export default function RootLayout({

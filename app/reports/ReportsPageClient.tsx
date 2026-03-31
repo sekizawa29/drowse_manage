@@ -240,18 +240,18 @@ export default function ReportsPageClient() {
 
   if (isLoading) {
     return (
-      <div className="flex-1 p-4 md:p-8 pt-6">
+      <div className="flex-1 p-3 md:p-8 pt-6">
         <LoadingSpinner text="データを読み込み中..." />
       </div>
     )
   }
 
   return (
-    <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
-      <div className="flex flex-col md:flex-row md:items-center justify-between space-y-4 md:space-y-0">
+    <div className="flex-1 space-y-3 md:space-y-4 p-3 md:p-8 pt-6">
+      <div className="flex flex-col md:flex-row md:items-center justify-between space-y-3 md:space-y-0">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight">レポート</h2>
-          <p className="text-muted-foreground">CBD製品の売上レポートを生成・閲覧します。</p>
+          <h2 className="text-xl md:text-3xl font-bold tracking-tight">レポート</h2>
+          <p className="text-sm md:text-base text-muted-foreground">CBD製品の売上レポートを生成・閲覧します。</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <Popover>
@@ -280,31 +280,31 @@ export default function ReportsPageClient() {
         </div>
       </div>
       <div className="overflow-x-auto pb-2">
-        <Tabs defaultValue="monthly" className="space-y-4" onValueChange={handleTabChange}>
-          <TabsList className="w-full sm:w-auto">
-            <TabsTrigger value="daily" className="flex-1 sm:flex-none">
+        <Tabs defaultValue="monthly" className="space-y-3 md:space-y-4" onValueChange={handleTabChange}>
+          <TabsList className="w-full">
+            <TabsTrigger value="daily" className="flex-1 text-xs md:text-sm">
               日次レポート
             </TabsTrigger>
-            <TabsTrigger value="weekly" className="flex-1 sm:flex-none">
+            <TabsTrigger value="weekly" className="flex-1 text-xs md:text-sm">
               週次レポート
             </TabsTrigger>
-            <TabsTrigger value="monthly" className="flex-1 sm:flex-none">
+            <TabsTrigger value="monthly" className="flex-1 text-xs md:text-sm">
               月次レポート
             </TabsTrigger>
-            <TabsTrigger value="yearly" className="flex-1 sm:flex-none">
+            <TabsTrigger value="yearly" className="flex-1 text-xs md:text-sm">
               年次レポート
             </TabsTrigger>
           </TabsList>
 
           {/* 日次レポートタブ */}
-          <TabsContent value="daily" className="space-y-4">
-            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+          <TabsContent value="daily" className="space-y-3 md:space-y-4">
+            <div className="grid gap-3 md:gap-4 grid-cols-2 lg:grid-cols-4">
               <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 p-4 md:p-6 pb-2">
                   <CardTitle className="text-sm font-medium">{salesData.periodLabel}</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">¥{salesData.totalAmount.toLocaleString()}</div>
+                <CardContent className="p-4 md:p-6 pt-0">
+                  <div className="text-lg md:text-2xl font-bold">¥{salesData.totalAmount.toLocaleString()}</div>
                   <p className="text-xs text-muted-foreground">
                     {salesData.comparisonLabel} {salesData.comparisonRate > 0 ? "+" : ""}
                     {salesData.comparisonRate.toFixed(1)}%
@@ -312,19 +312,19 @@ export default function ReportsPageClient() {
                 </CardContent>
               </Card>
               <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 p-4 md:p-6 pb-2">
                   <CardTitle className="text-sm font-medium">販売数</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{salesData.salesCount}件</div>
+                <CardContent className="p-4 md:p-6 pt-0">
+                  <div className="text-lg md:text-2xl font-bold">{salesData.salesCount}件</div>
                 </CardContent>
               </Card>
               <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 p-4 md:p-6 pb-2">
                   <CardTitle className="text-sm font-medium">平均購入額</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">
+                <CardContent className="p-4 md:p-6 pt-0">
+                  <div className="text-lg md:text-2xl font-bold">
                     ¥
                     {salesData.averagePurchase.toLocaleString(undefined, {
                       maximumFractionDigits: 0,
@@ -333,44 +333,44 @@ export default function ReportsPageClient() {
                 </CardContent>
               </Card>
               <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 p-4 md:p-6 pb-2">
                   <CardTitle className="text-sm font-medium">目標達成率</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{salesData.achievementRate.toFixed(1)}%</div>
+                <CardContent className="p-4 md:p-6 pt-0">
+                  <div className="text-lg md:text-2xl font-bold">{salesData.achievementRate.toFixed(1)}%</div>
                   <p className="text-xs text-muted-foreground">目標: ¥{salesData.targetAmount.toLocaleString()}</p>
                 </CardContent>
               </Card>
             </div>
             <Card>
-              <CardHeader>
+              <CardHeader className="p-4 md:p-6">
                 <CardTitle>日次売上推移</CardTitle>
                 <CardDescription>{salesData.periodLabel}の時間帯別売上推移</CardDescription>
               </CardHeader>
-              <CardContent className="pl-2">
+              <CardContent className="p-4 md:p-6 pt-0 pl-2">
                 <Overview />
               </CardContent>
             </Card>
             <Card>
-              <CardHeader>
+              <CardHeader className="p-4 md:p-6">
                 <CardTitle>利益分析</CardTitle>
                 <CardDescription>{salesData.periodLabel}の売上・仕入れ・利益</CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="bg-muted/30 p-4 rounded-lg">
-                    <h3 className="text-sm font-medium mb-2">売上合計</h3>
-                    <p className="text-2xl font-bold">¥{calculateProfit("daily").totalSales.toLocaleString()}</p>
+              <CardContent className="p-4 md:p-6 pt-0">
+                <div className="grid grid-cols-3 gap-2 md:gap-4">
+                  <div className="bg-muted/30 p-3 md:p-4 rounded-lg">
+                    <h3 className="text-xs md:text-sm font-medium mb-1 md:mb-2">売上合計</h3>
+                    <p className="text-sm md:text-2xl font-bold">¥{calculateProfit("daily").totalSales.toLocaleString()}</p>
                   </div>
-                  <div className="bg-muted/30 p-4 rounded-lg">
-                    <h3 className="text-sm font-medium mb-2">仕入れ合計</h3>
-                    <p className="text-2xl font-bold">¥{calculateProfit("daily").totalPurchases.toLocaleString()}</p>
+                  <div className="bg-muted/30 p-3 md:p-4 rounded-lg">
+                    <h3 className="text-xs md:text-sm font-medium mb-1 md:mb-2">仕入れ合計</h3>
+                    <p className="text-sm md:text-2xl font-bold">¥{calculateProfit("daily").totalPurchases.toLocaleString()}</p>
                   </div>
                   <div
-                    className={`p-4 rounded-lg ${calculateProfit("daily").profit >= 0 ? "bg-green-100 dark:bg-green-900/30" : "bg-red-100 dark:bg-red-900/30"}`}
+                    className={`p-3 md:p-4 rounded-lg ${calculateProfit("daily").profit >= 0 ? "bg-green-100 dark:bg-green-900/30" : "bg-red-100 dark:bg-red-900/30"}`}
                   >
-                    <h3 className="text-sm font-medium mb-2">利益</h3>
-                    <p className="text-2xl font-bold">¥{calculateProfit("daily").profit.toLocaleString()}</p>
+                    <h3 className="text-xs md:text-sm font-medium mb-1 md:mb-2">利益</h3>
+                    <p className="text-sm md:text-2xl font-bold">¥{calculateProfit("daily").profit.toLocaleString()}</p>
                     <p className="text-xs text-muted-foreground">
                       利益率: {calculateProfit("daily").profitRate.toFixed(1)}%
                     </p>
@@ -381,14 +381,14 @@ export default function ReportsPageClient() {
           </TabsContent>
 
           {/* 週次レポートタブ */}
-          <TabsContent value="weekly" className="space-y-4">
-            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+          <TabsContent value="weekly" className="space-y-3 md:space-y-4">
+            <div className="grid gap-3 md:gap-4 grid-cols-2 lg:grid-cols-4">
               <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 p-4 md:p-6 pb-2">
                   <CardTitle className="text-sm font-medium">{salesData.periodLabel}</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">¥{salesData.totalAmount.toLocaleString()}</div>
+                <CardContent className="p-4 md:p-6 pt-0">
+                  <div className="text-lg md:text-2xl font-bold">¥{salesData.totalAmount.toLocaleString()}</div>
                   <p className="text-xs text-muted-foreground">
                     {salesData.comparisonLabel} {salesData.comparisonRate > 0 ? "+" : ""}
                     {salesData.comparisonRate.toFixed(1)}%
@@ -396,19 +396,19 @@ export default function ReportsPageClient() {
                 </CardContent>
               </Card>
               <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 p-4 md:p-6 pb-2">
                   <CardTitle className="text-sm font-medium">販売数</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{salesData.salesCount}件</div>
+                <CardContent className="p-4 md:p-6 pt-0">
+                  <div className="text-lg md:text-2xl font-bold">{salesData.salesCount}件</div>
                 </CardContent>
               </Card>
               <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 p-4 md:p-6 pb-2">
                   <CardTitle className="text-sm font-medium">平均購入額</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">
+                <CardContent className="p-4 md:p-6 pt-0">
+                  <div className="text-lg md:text-2xl font-bold">
                     ¥
                     {salesData.averagePurchase.toLocaleString(undefined, {
                       maximumFractionDigits: 0,
@@ -417,55 +417,55 @@ export default function ReportsPageClient() {
                 </CardContent>
               </Card>
               <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 p-4 md:p-6 pb-2">
                   <CardTitle className="text-sm font-medium">目標達成率</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{salesData.achievementRate.toFixed(1)}%</div>
+                <CardContent className="p-4 md:p-6 pt-0">
+                  <div className="text-lg md:text-2xl font-bold">{salesData.achievementRate.toFixed(1)}%</div>
                   <p className="text-xs text-muted-foreground">目標: ¥{salesData.targetAmount.toLocaleString()}</p>
                 </CardContent>
               </Card>
             </div>
-            <div className="grid gap-4 grid-cols-1 lg:grid-cols-7">
+            <div className="grid gap-3 md:gap-4 grid-cols-1 lg:grid-cols-7">
               <Card className="col-span-1 lg:col-span-4">
-                <CardHeader>
+                <CardHeader className="p-4 md:p-6">
                   <CardTitle>週間売上推移</CardTitle>
                   <CardDescription>{salesData.periodLabel}の日別売上推移</CardDescription>
                 </CardHeader>
-                <CardContent className="pl-2">
+                <CardContent className="p-4 md:p-6 pt-0 pl-2">
                   <Overview />
                 </CardContent>
               </Card>
               <Card className="col-span-1 lg:col-span-3">
-                <CardHeader>
+                <CardHeader className="p-4 md:p-6">
                   <CardTitle>製品別売上比率</CardTitle>
                   <CardDescription>{salesData.periodLabel}の製品カテゴリ別売上比率</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-4 md:p-6 pt-0">
                   <SalesByProduct selectedMonth={selectedMonth} />
                 </CardContent>
               </Card>
             </div>
             <Card>
-              <CardHeader>
+              <CardHeader className="p-4 md:p-6">
                 <CardTitle>利益分析</CardTitle>
                 <CardDescription>{salesData.periodLabel}の売上・仕入れ・利益</CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="bg-muted/30 p-4 rounded-lg">
-                    <h3 className="text-sm font-medium mb-2">売上合計</h3>
-                    <p className="text-2xl font-bold">¥{calculateProfit("weekly").totalSales.toLocaleString()}</p>
+              <CardContent className="p-4 md:p-6 pt-0">
+                <div className="grid grid-cols-3 gap-2 md:gap-4">
+                  <div className="bg-muted/30 p-3 md:p-4 rounded-lg">
+                    <h3 className="text-xs md:text-sm font-medium mb-1 md:mb-2">売上合計</h3>
+                    <p className="text-sm md:text-2xl font-bold">¥{calculateProfit("weekly").totalSales.toLocaleString()}</p>
                   </div>
-                  <div className="bg-muted/30 p-4 rounded-lg">
-                    <h3 className="text-sm font-medium mb-2">仕入れ合計</h3>
-                    <p className="text-2xl font-bold">¥{calculateProfit("weekly").totalPurchases.toLocaleString()}</p>
+                  <div className="bg-muted/30 p-3 md:p-4 rounded-lg">
+                    <h3 className="text-xs md:text-sm font-medium mb-1 md:mb-2">仕入れ合計</h3>
+                    <p className="text-sm md:text-2xl font-bold">¥{calculateProfit("weekly").totalPurchases.toLocaleString()}</p>
                   </div>
                   <div
-                    className={`p-4 rounded-lg ${calculateProfit("weekly").profit >= 0 ? "bg-green-100 dark:bg-green-900/30" : "bg-red-100 dark:bg-red-900/30"}`}
+                    className={`p-3 md:p-4 rounded-lg ${calculateProfit("weekly").profit >= 0 ? "bg-green-100 dark:bg-green-900/30" : "bg-red-100 dark:bg-red-900/30"}`}
                   >
-                    <h3 className="text-sm font-medium mb-2">利益</h3>
-                    <p className="text-2xl font-bold">¥{calculateProfit("weekly").profit.toLocaleString()}</p>
+                    <h3 className="text-xs md:text-sm font-medium mb-1 md:mb-2">利益</h3>
+                    <p className="text-sm md:text-2xl font-bold">¥{calculateProfit("weekly").profit.toLocaleString()}</p>
                     <p className="text-xs text-muted-foreground">
                       利益率: {calculateProfit("weekly").profitRate.toFixed(1)}%
                     </p>
@@ -476,14 +476,14 @@ export default function ReportsPageClient() {
           </TabsContent>
 
           {/* 月次レポートタブ */}
-          <TabsContent value="monthly" className="space-y-4">
-            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+          <TabsContent value="monthly" className="space-y-3 md:space-y-4">
+            <div className="grid gap-3 md:gap-4 grid-cols-2 lg:grid-cols-4">
               <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 p-4 md:p-6 pb-2">
                   <CardTitle className="text-sm font-medium">総売上</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">¥{salesData.totalAmount.toLocaleString()}</div>
+                <CardContent className="p-4 md:p-6 pt-0">
+                  <div className="text-lg md:text-2xl font-bold">¥{salesData.totalAmount.toLocaleString()}</div>
                   <p className="text-xs text-muted-foreground">
                     {salesData.comparisonLabel} {salesData.comparisonRate > 0 ? "+" : ""}
                     {salesData.comparisonRate.toFixed(1)}%
@@ -491,11 +491,11 @@ export default function ReportsPageClient() {
                 </CardContent>
               </Card>
               <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 p-4 md:p-6 pb-2">
                   <CardTitle className="text-sm font-medium">販売数</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{salesData.salesCount}件</div>
+                <CardContent className="p-4 md:p-6 pt-0">
+                  <div className="text-lg md:text-2xl font-bold">{salesData.salesCount}件</div>
                   <p className="text-xs text-muted-foreground">
                     {salesData.comparisonLabel} {salesData.comparisonRate > 0 ? "+" : ""}
                     {salesData.comparisonRate.toFixed(1)}%
@@ -503,11 +503,11 @@ export default function ReportsPageClient() {
                 </CardContent>
               </Card>
               <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 p-4 md:p-6 pb-2">
                   <CardTitle className="text-sm font-medium">平均購入額</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">
+                <CardContent className="p-4 md:p-6 pt-0">
+                  <div className="text-lg md:text-2xl font-bold">
                     ¥{salesData.averagePurchase.toLocaleString(undefined, { maximumFractionDigits: 0 })}
                   </div>
                   <p className="text-xs text-muted-foreground">
@@ -517,55 +517,55 @@ export default function ReportsPageClient() {
                 </CardContent>
               </Card>
               <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 p-4 md:p-6 pb-2">
                   <CardTitle className="text-sm font-medium">目標達成率</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{salesData.achievementRate.toFixed(1)}%</div>
+                <CardContent className="p-4 md:p-6 pt-0">
+                  <div className="text-lg md:text-2xl font-bold">{salesData.achievementRate.toFixed(1)}%</div>
                   <p className="text-xs text-muted-foreground">目標: ¥{salesData.targetAmount.toLocaleString()}</p>
                 </CardContent>
               </Card>
             </div>
-            <div className="grid gap-4 grid-cols-1 lg:grid-cols-7">
+            <div className="grid gap-3 md:gap-4 grid-cols-1 lg:grid-cols-7">
               <Card className="col-span-1 lg:col-span-4">
-                <CardHeader>
+                <CardHeader className="p-4 md:p-6">
                   <CardTitle>月間売上推移</CardTitle>
                   <CardDescription>{salesData.periodLabel}の日次売上推移</CardDescription>
                 </CardHeader>
-                <CardContent className="pl-2">
+                <CardContent className="p-4 md:p-6 pt-0 pl-2">
                   <Overview />
                 </CardContent>
               </Card>
               <Card className="col-span-1 lg:col-span-3">
-                <CardHeader>
+                <CardHeader className="p-4 md:p-6">
                   <CardTitle>製品別売上比率</CardTitle>
                   <CardDescription>{salesData.periodLabel}の製品カテゴリ別売上比率</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-4 md:p-6 pt-0">
                   <SalesByProduct selectedMonth={selectedMonth} />
                 </CardContent>
               </Card>
             </div>
             <Card>
-              <CardHeader>
+              <CardHeader className="p-4 md:p-6">
                 <CardTitle>利益分析</CardTitle>
                 <CardDescription>{salesData.periodLabel}の売上・仕入れ・利益</CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="bg-muted/30 p-4 rounded-lg">
-                    <h3 className="text-sm font-medium mb-2">売上合計</h3>
-                    <p className="text-2xl font-bold">¥{calculateProfit("monthly").totalSales.toLocaleString()}</p>
+              <CardContent className="p-4 md:p-6 pt-0">
+                <div className="grid grid-cols-3 gap-2 md:gap-4">
+                  <div className="bg-muted/30 p-3 md:p-4 rounded-lg">
+                    <h3 className="text-xs md:text-sm font-medium mb-1 md:mb-2">売上合計</h3>
+                    <p className="text-sm md:text-2xl font-bold">¥{calculateProfit("monthly").totalSales.toLocaleString()}</p>
                   </div>
-                  <div className="bg-muted/30 p-4 rounded-lg">
-                    <h3 className="text-sm font-medium mb-2">仕入れ合計</h3>
-                    <p className="text-2xl font-bold">¥{calculateProfit("monthly").totalPurchases.toLocaleString()}</p>
+                  <div className="bg-muted/30 p-3 md:p-4 rounded-lg">
+                    <h3 className="text-xs md:text-sm font-medium mb-1 md:mb-2">仕入れ合計</h3>
+                    <p className="text-sm md:text-2xl font-bold">¥{calculateProfit("monthly").totalPurchases.toLocaleString()}</p>
                   </div>
                   <div
-                    className={`p-4 rounded-lg ${calculateProfit("monthly").profit >= 0 ? "bg-green-100 dark:bg-green-900/30" : "bg-red-100 dark:bg-red-900/30"}`}
+                    className={`p-3 md:p-4 rounded-lg ${calculateProfit("monthly").profit >= 0 ? "bg-green-100 dark:bg-green-900/30" : "bg-red-100 dark:bg-red-900/30"}`}
                   >
-                    <h3 className="text-sm font-medium mb-2">利益</h3>
-                    <p className="text-2xl font-bold">¥{calculateProfit("monthly").profit.toLocaleString()}</p>
+                    <h3 className="text-xs md:text-sm font-medium mb-1 md:mb-2">利益</h3>
+                    <p className="text-sm md:text-2xl font-bold">¥{calculateProfit("monthly").profit.toLocaleString()}</p>
                     <p className="text-xs text-muted-foreground">
                       利益率: {calculateProfit("monthly").profitRate.toFixed(1)}%
                     </p>
@@ -574,20 +574,20 @@ export default function ReportsPageClient() {
               </CardContent>
             </Card>
             <Card>
-              <CardHeader>
+              <CardHeader className="p-4 md:p-6">
                 <CardTitle>前年同月比較</CardTitle>
                 <CardDescription>前年同月との売上比較</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-4 md:p-6 pt-0">
                 <SalesComparison />
               </CardContent>
             </Card>
             <Card>
-              <CardHeader>
+              <CardHeader className="p-4 md:p-6">
                 <CardTitle>月次レポートサマリー</CardTitle>
                 <CardDescription>{salesData.periodLabel}の売上サマリー</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-3 md:space-y-4 p-4 md:p-6 pt-0">
                 <div>
                   <h4 className="font-medium mb-2">主要指標</h4>
                   <ul className="list-disc pl-5 space-y-1">
@@ -635,14 +635,14 @@ export default function ReportsPageClient() {
           </TabsContent>
 
           {/* 年次レポートタブ */}
-          <TabsContent value="yearly" className="space-y-4">
-            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+          <TabsContent value="yearly" className="space-y-3 md:space-y-4">
+            <div className="grid gap-3 md:gap-4 grid-cols-2 lg:grid-cols-4">
               <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 p-4 md:p-6 pb-2">
                   <CardTitle className="text-sm font-medium">年間売上</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">¥{salesData.totalAmount.toLocaleString()}</div>
+                <CardContent className="p-4 md:p-6 pt-0">
+                  <div className="text-lg md:text-2xl font-bold">¥{salesData.totalAmount.toLocaleString()}</div>
                   <p className="text-xs text-muted-foreground">
                     前年比 {salesData.comparisonRate > 0 ? "+" : ""}
                     {salesData.comparisonRate.toFixed(1)}%
@@ -650,19 +650,19 @@ export default function ReportsPageClient() {
                 </CardContent>
               </Card>
               <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 p-4 md:p-6 pb-2">
                   <CardTitle className="text-sm font-medium">販売数</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{salesData.salesCount}件</div>
+                <CardContent className="p-4 md:p-6 pt-0">
+                  <div className="text-lg md:text-2xl font-bold">{salesData.salesCount}件</div>
                 </CardContent>
               </Card>
               <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 p-4 md:p-6 pb-2">
                   <CardTitle className="text-sm font-medium">平均購入額</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">
+                <CardContent className="p-4 md:p-6 pt-0">
+                  <div className="text-lg md:text-2xl font-bold">
                     ¥
                     {salesData.averagePurchase.toLocaleString(undefined, {
                       maximumFractionDigits: 0,
@@ -671,55 +671,55 @@ export default function ReportsPageClient() {
                 </CardContent>
               </Card>
               <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 p-4 md:p-6 pb-2">
                   <CardTitle className="text-sm font-medium">目標達成率</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{salesData.achievementRate.toFixed(1)}%</div>
+                <CardContent className="p-4 md:p-6 pt-0">
+                  <div className="text-lg md:text-2xl font-bold">{salesData.achievementRate.toFixed(1)}%</div>
                   <p className="text-xs text-muted-foreground">目標: ¥{salesData.targetAmount.toLocaleString()}</p>
                 </CardContent>
               </Card>
             </div>
-            <div className="grid gap-4 grid-cols-1 lg:grid-cols-7">
+            <div className="grid gap-3 md:gap-4 grid-cols-1 lg:grid-cols-7">
               <Card className="col-span-1 lg:col-span-4">
-                <CardHeader>
+                <CardHeader className="p-4 md:p-6">
                   <CardTitle>年間売上推移</CardTitle>
                   <CardDescription>{salesData.periodLabel}の月別売上推移</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-4 md:p-6 pt-0">
                   <SalesComparison />
                 </CardContent>
               </Card>
               <Card className="col-span-1 lg:col-span-3">
-                <CardHeader>
+                <CardHeader className="p-4 md:p-6">
                   <CardTitle>製品別売上比率</CardTitle>
                   <CardDescription>{salesData.periodLabel}の製品カテゴリ別売上比率</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-4 md:p-6 pt-0">
                   <SalesByProduct selectedMonth={selectedMonth} />
                 </CardContent>
               </Card>
             </div>
             <Card>
-              <CardHeader>
+              <CardHeader className="p-4 md:p-6">
                 <CardTitle>利益分析</CardTitle>
                 <CardDescription>{salesData.periodLabel}の売上・仕入れ・利益</CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="bg-muted/30 p-4 rounded-lg">
-                    <h3 className="text-sm font-medium mb-2">売上合計</h3>
-                    <p className="text-2xl font-bold">¥{calculateProfit("yearly").totalSales.toLocaleString()}</p>
+              <CardContent className="p-4 md:p-6 pt-0">
+                <div className="grid grid-cols-3 gap-2 md:gap-4">
+                  <div className="bg-muted/30 p-3 md:p-4 rounded-lg">
+                    <h3 className="text-xs md:text-sm font-medium mb-1 md:mb-2">売上合計</h3>
+                    <p className="text-sm md:text-2xl font-bold">¥{calculateProfit("yearly").totalSales.toLocaleString()}</p>
                   </div>
-                  <div className="bg-muted/30 p-4 rounded-lg">
-                    <h3 className="text-sm font-medium mb-2">仕入れ合計</h3>
-                    <p className="text-2xl font-bold">¥{calculateProfit("yearly").totalPurchases.toLocaleString()}</p>
+                  <div className="bg-muted/30 p-3 md:p-4 rounded-lg">
+                    <h3 className="text-xs md:text-sm font-medium mb-1 md:mb-2">仕入れ合計</h3>
+                    <p className="text-sm md:text-2xl font-bold">¥{calculateProfit("yearly").totalPurchases.toLocaleString()}</p>
                   </div>
                   <div
-                    className={`p-4 rounded-lg ${calculateProfit("yearly").profit >= 0 ? "bg-green-100 dark:bg-green-900/30" : "bg-red-100 dark:bg-red-900/30"}`}
+                    className={`p-3 md:p-4 rounded-lg ${calculateProfit("yearly").profit >= 0 ? "bg-green-100 dark:bg-green-900/30" : "bg-red-100 dark:bg-red-900/30"}`}
                   >
-                    <h3 className="text-sm font-medium mb-2">利益</h3>
-                    <p className="text-2xl font-bold">¥{calculateProfit("yearly").profit.toLocaleString()}</p>
+                    <h3 className="text-xs md:text-sm font-medium mb-1 md:mb-2">利益</h3>
+                    <p className="text-sm md:text-2xl font-bold">¥{calculateProfit("yearly").profit.toLocaleString()}</p>
                     <p className="text-xs text-muted-foreground">
                       利益率: {calculateProfit("yearly").profitRate.toFixed(1)}%
                     </p>
@@ -728,11 +728,11 @@ export default function ReportsPageClient() {
               </CardContent>
             </Card>
             <Card>
-              <CardHeader>
+              <CardHeader className="p-4 md:p-6">
                 <CardTitle>年次レポートサマリー</CardTitle>
                 <CardDescription>{salesData.periodLabel}のサマリー</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-3 md:space-y-4 p-4 md:p-6 pt-0">
                 <div>
                   <h4 className="font-medium mb-2">主要指標</h4>
                   <ul className="list-disc pl-5 space-y-1">

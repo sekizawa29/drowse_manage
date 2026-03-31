@@ -50,21 +50,21 @@ export default function PurchasesPage() {
   const totalPurchaseAmount = filteredPurchases.reduce((sum, purchase) => sum + purchase.amount, 0)
 
   return (
-    <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div className="flex-1 space-y-3 md:space-y-4 p-3 md:p-8 pt-3 md:pt-6">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-4">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight">仕入れ管理</h2>
-          <p className="text-muted-foreground">CBD製品の仕入れデータを管理します。</p>
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">仕入れ管理</h2>
+          <p className="text-sm md:text-base text-muted-foreground">CBD製品の仕入れデータを管理します。</p>
         </div>
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
           <Popover>
             <PopoverTrigger asChild>
-              <Button variant={"outline"} className={cn("justify-start text-left font-normal")}>
+              <Button variant={"outline"} className={cn("justify-start text-left font-normal h-9 md:h-10")}>
                 <CalendarIcon className="mr-2 h-4 w-4" />
                 {format(selectedMonth, "yyyy年M月", { locale: ja })}
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="end">
+            <PopoverContent className="w-auto p-0" align="start">
               <Calendar
                 mode="month"
                 selected={selectedMonth}
@@ -74,14 +74,14 @@ export default function PurchasesPage() {
               />
             </PopoverContent>
           </Popover>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <ImportPurchases selectedMonth={selectedMonth} />
             <ExportPurchases selectedMonth={selectedMonth} />
           </div>
           <AddPurchaseDialog />
         </div>
       </div>
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center gap-2">
         <div className="relative w-full md:w-80">
           <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
@@ -154,7 +154,7 @@ export default function PurchasesPage() {
               <div className="divide-y">
                 {filteredPurchases.length > 0 ? (
                   filteredPurchases.map((purchase) => (
-                    <div key={purchase.id} className="p-4">
+                    <div key={purchase.id} className="p-3 md:p-4">
                       <div className="flex justify-between items-start mb-2">
                         <div>
                           <div className="font-medium">{purchase.productName}</div>
@@ -162,9 +162,9 @@ export default function PurchasesPage() {
                             {format(purchase.date, "yyyy/MM/dd", { locale: ja })}
                           </div>
                         </div>
-                        <div className="font-bold">¥{purchase.amount.toLocaleString()}</div>
+                        <div className="font-bold text-lg md:text-xl">¥{purchase.amount.toLocaleString()}</div>
                       </div>
-                      <div className="mt-3 flex justify-end">
+                      <div className="mt-2 md:mt-3 flex justify-end">
                         <Button
                           variant="ghost"
                           size="sm"
@@ -180,9 +180,9 @@ export default function PurchasesPage() {
                   <div className="py-8 text-center text-muted-foreground">該当するデータがありません</div>
                 )}
                 {filteredPurchases.length > 0 && (
-                  <div className="p-4 bg-muted/50 flex justify-between items-center">
+                  <div className="p-3 md:p-4 bg-muted/50 flex justify-between items-center">
                     <span className="font-medium">合計</span>
-                    <span className="font-bold">¥{totalPurchaseAmount.toLocaleString()}</span>
+                    <span className="font-bold text-lg md:text-xl">¥{totalPurchaseAmount.toLocaleString()}</span>
                   </div>
                 )}
               </div>

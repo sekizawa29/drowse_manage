@@ -67,17 +67,19 @@ export default function ProductsPage() {
   }
 
   return (
-    <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div className="flex-1 space-y-3 md:space-y-4 p-3 md:p-8 pt-3 md:pt-6">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-4">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight">製品管理</h2>
-          <p className="text-muted-foreground">CBD製品の情報を管理します。</p>
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">製品管理</h2>
+          <p className="text-sm md:text-base text-muted-foreground">CBD製品の情報を管理します。</p>
         </div>
-        <Button onClick={() => setAddDialogOpen(true)}>
-          <Plus className="mr-2 h-4 w-4" /> 製品追加
-        </Button>
+        <div className="flex flex-wrap gap-2 w-full md:w-auto">
+          <Button onClick={() => setAddDialogOpen(true)} className="w-full sm:w-auto">
+            <Plus className="mr-2 h-4 w-4" /> 製品追加
+          </Button>
+        </div>
       </div>
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center gap-2">
         <div className="relative w-full md:w-80">
           <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
@@ -151,7 +153,7 @@ export default function ProductsPage() {
               <div className="divide-y">
                 {filteredProducts.length > 0 ? (
                   filteredProducts.map((product) => (
-                    <div key={product.id} className="p-4">
+                    <div key={product.id} className="p-3 md:p-4">
                       <div className="flex justify-between items-start mb-2">
                         <div>
                           <div className="font-medium">{product.name}</div>
@@ -162,9 +164,9 @@ export default function ProductsPage() {
                         <Badge className={getStockBadgeStyle(product.stock)}>{getStockLabel(product.stock)}</Badge>
                       </div>
                       <div className="flex justify-between items-center mt-2">
-                        <div className="font-bold">¥{product.price.toLocaleString()}</div>
+                        <div className="font-bold text-lg md:text-xl">¥{product.price.toLocaleString()}</div>
                       </div>
-                      <div className="mt-3 flex justify-end space-x-2">
+                      <div className="mt-2 md:mt-3 flex flex-wrap justify-end gap-2">
                         <Button variant="ghost" size="sm" onClick={() => handleEditClick(product)}>
                           <Pencil className="h-4 w-4 mr-2" /> 編集
                         </Button>

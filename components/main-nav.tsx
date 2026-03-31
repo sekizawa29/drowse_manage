@@ -55,7 +55,11 @@ export function MainNav() {
               <span className="sr-only">メニューを開く</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="w-[240px] sm:w-[300px]">
+          <SheetContent
+            side="left"
+            srTitle="モバイルナビゲーションメニュー"
+            className="w-[240px] sm:w-[300px]"
+          >
             <div className="flex flex-col space-y-4 py-4">
               <div className="flex items-center justify-between mb-4">
                 <span className="font-bold text-lg">売上管理</span>
