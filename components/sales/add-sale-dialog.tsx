@@ -120,6 +120,16 @@ export function AddSaleDialog() {
       if (!isValid(dateObj)) {
         throw new Error("無効な日付です")
       }
+
+      // 入力日が今日の場合は現在時刻を付与、それ以外は00:00のまま
+      const now = new Date()
+      if (
+        dateObj.getFullYear() === now.getFullYear() &&
+        dateObj.getMonth() === now.getMonth() &&
+        dateObj.getDate() === now.getDate()
+      ) {
+        dateObj.setHours(now.getHours(), now.getMinutes(), now.getSeconds())
+      }
     } catch (error) {
       toast({
         title: "無効な日付形式",

@@ -174,7 +174,7 @@ export default function SalesPageClient() {
                   {filteredSales.length > 0 ? (
                     filteredSales.map((sale) => (
                       <TableRow key={sale.id}>
-                        <TableCell>{format(sale.date, "yyyy/MM/dd", { locale: ja })}</TableCell>
+                        <TableCell>{format(sale.date, "yyyy/MM/dd HH:mm", { locale: ja })}</TableCell>
                         <TableCell>{sale.productName}</TableCell>
                         <TableCell>{sale.salespersonName || "不明"}</TableCell>
                         <TableCell>
@@ -217,7 +217,7 @@ export default function SalesPageClient() {
                           <div className="font-medium">{sale.productName}</div>
                           <div className="text-sm text-muted-foreground">販売者: {sale.salespersonName || "不明"}</div>
                           <div className="text-sm text-muted-foreground">
-                            {format(sale.date, "yyyy/MM/dd", { locale: ja })}
+                            {format(sale.date, "yyyy/MM/dd HH:mm", { locale: ja })}
                           </div>
                         </div>
                         <Badge variant="outline">{sale.category}</Badge>
